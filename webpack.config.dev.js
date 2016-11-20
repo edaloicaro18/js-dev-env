@@ -1,4 +1,5 @@
 import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 //https://github.com/webpack/webpack/issues/2145
 
@@ -15,11 +16,17 @@ export default {
     publicPath: '/',
     filename: 'bundle.js'
   },
-  plugins: [],
+  plugins: [
+    // Create HTML file that includes reference to bundle JS.
+    new HtmlWebpackPlugin({
+      template: 'src/index.html',
+      inject: true
+    })
+  ],
   module: {
     loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
-      {test: /\.css$/, loaders: ['style','css']}
+      { test: /\.js$/, exclude: /node_modules/, loaders: ['babel'] },
+      { test: /\.css$/, loaders: ['style', 'css'] }
     ]
   }
 }
